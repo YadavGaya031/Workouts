@@ -17,12 +17,12 @@ class RoutineBase(BaseModel):
 class RoutineCreate(RoutineBase):
     workouts: List[int] = []
 
-@router.get("/")
+@router.get("")
 def get_routines(db: db_dependency, user: user_dependency):
     routines = db.query(Routine).options(joinedload(Routine.workouts)).filter(Routine.user_id == user.get('id')).all()
     return routines
 
-@router.post('/')
+@router.post('')
 def create_routine(db: db_dependency, user: user_dependency, routine: RoutineCreate):
     db_routine = Routine(name=routine.name, description = routine.description, user_id=user.get('id'))
     for workout_id in routine.workouts:
@@ -35,7 +35,7 @@ def create_routine(db: db_dependency, user: user_dependency, routine: RoutineCre
     db_routines = db.query(Routine).options(joinedload(Routine.workouts)).filter(Routine.id == db_routine.id).first()
     return db_routines
 
-@router.delete('/')
+@router.delete('')
 def delete_routine(db: db_dependency, user: user_dependency, routine_id: int):
     db_routine = db.query(Routine).filter(Routine.id == routine_id).first()
     if db_routine:
