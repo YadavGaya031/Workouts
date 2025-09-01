@@ -1,3 +1,4 @@
+--only-binary=:all:
 aiofiles==23.2.1
 annotated-types==0.6.0
 anyio==4.3.0
@@ -9,7 +10,7 @@ h11==0.14.0
 idna==3.7
 passlib==1.7.4
 pyasn1==0.6.0
-pydantic==2.7.0
+pydantic==1.10.13
 python-jose==3.3.0
 python-multipart==0.0.9
 rsa==4.9
