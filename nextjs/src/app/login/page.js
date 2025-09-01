@@ -3,6 +3,7 @@ import { useContext, useState } from 'react';
 import AuthContext from '../context/AuthContext';
 import axios from 'axios';
 
+
 const login = () => {
     const { login } = useContext(AuthContext);
     const [username, setUsername] = useState('');
@@ -25,7 +26,7 @@ const login = () => {
     const handleRegister = async (e) => {
       e.preventDefault();
       try {
-        const response = await axios.post('http://localhost:8000/auth', {
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth`, {
           username: registerUsername,
           password: registerPassword,
         });

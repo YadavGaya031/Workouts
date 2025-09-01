@@ -21,30 +21,6 @@ const Home = () => {
   const [creatingRoutine, setCreatingRoutine] = useState(false);
   const [deletingWorkout, setDeletingWorkout] = useState(null);
   const [deletingRoutine, setDeletingRoutine] = useState(null);
-  // const token = localStorage.getItem('token');
-
-  // useEffect(() => {
-  //   const fetchWorkoutsAndRoutines = async () => {
-  //     try {
-  //       const token = localStorage.getItem('token'); 
-  //       const [workoutsResponse, routinesResponse] = await Promise.all([
-  //         axios.get('http://localhost:8000/workouts/workouts', {
-  //           headers: { Authorization: `Bearer ${token}` },
-  //         }),
-  //         axios.get('http://localhost:8000/routines', {
-  //           headers: { Authorization: `Bearer ${token}` },
-  //         }),
-  //       ]);
-
-  //       setWorkouts(workoutsResponse.data);
-  //       setRoutines(routinesResponse.data);
-  //     } catch (error) {
-  //       console.error('Failed to fetch data:', error);
-  //     }
-  //   };
-
-  //   fetchWorkoutsAndRoutines();
-  // }, []);
    useEffect(() => {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
@@ -60,10 +36,10 @@ const Home = () => {
       setError('');
       try {
         const [workoutsResponse, routinesResponse] = await Promise.all([
-          axios.get('http://localhost:8000/workouts/workouts', {
+          axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/workouts/workouts`, {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          axios.get('http://localhost:8000/routines', {
+          axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/routines`, {
             headers: { Authorization: `Bearer ${token}` },
           }),
         ]);
@@ -86,7 +62,7 @@ const Home = () => {
     setCreatingWorkout(true);
     setError('');
     try {
-      const response = await axios.post('http://localhost:8000/workouts', {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/workouts`, {
         name: workoutName,
         description: workoutDescription,
       }, {
@@ -108,7 +84,7 @@ const Home = () => {
     setCreatingRoutine(true);
     setError('');
     try {
-      const response = await axios.post('http://localhost:8000/routines', {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/routines`, {
         name: routineName,
         description: routineDescription,
         workouts: selectedWorkouts,
@@ -131,7 +107,7 @@ const Home = () => {
     setDeletingWorkout(workoutId);
     setError('');
     try {
-      await axios.delete(`http://localhost:8000/workouts?workout_id=${workoutId}`, {
+      await axios.delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/workouts?workout_id=${workoutId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setWorkouts(workouts.filter(workout => workout.id !== workoutId));
@@ -147,7 +123,7 @@ const Home = () => {
     setDeletingRoutine(routineId);
     setError('');
     try {
-      await axios.delete(`http://localhost:8000/routines?routine_id=${routineId}`, {
+      await axios.delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/routines?routine_id=${routineId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setRoutines(routines.filter(routine => routine.id !== routineId));

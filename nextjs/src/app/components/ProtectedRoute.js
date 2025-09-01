@@ -1,23 +1,3 @@
-// 'use client'
-// import { useContext, useEffect } from 'react';
-// import { useRouter } from 'next/navigation';
-// import AuthContext from '../context/AuthContext';
-
-// const ProtectedRoute = ({children}) => {
-//     const {user} = useContext(AuthContext);
-//     const router = useRouter();
-
-//     useEffect(() => {
-//         const token = localStorage.getItem('token');
-//         if(!user && !token){
-//             router.push('/login')
-//         }
-//     }, [user, router]);
-//     return (user || localStorage.getItem('token')) ? children : null;
-// };
-
-// export default ProtectedRoute;
-
 'use client';
 import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
