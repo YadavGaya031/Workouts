@@ -10,12 +10,16 @@ export const AuthProvider = ({ children }) => {
     const router = useRouter()
     const login = async(username, password) => {
         try{
-            const formData = new FormData();
-            formData.append('username', username);
-            formData.append('password', password);
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/token`, formData, {
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            })
+            // const formData = new FormData();
+            // formData.append('username', username);
+            // formData.append('password', password);
+            // const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/token`, formData, {
+            //     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            // })
+            const data = `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/token`, data, {
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            });
             axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access_token}`;
             localStorage.setItem('token', response.data.access_token);
             setUser(response.data);
